@@ -27,7 +27,9 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ *@param int $min
+ *@param int $max
+ *@return int
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -120,7 +122,7 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ *@param string $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -133,7 +135,8 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ *@param string $cadena
+ *@return string
  */
 function esPalabra($cadena)
 {
@@ -149,7 +152,7 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ *@return string
  */
 function leerPalabra5Letras()
 {
@@ -279,7 +282,7 @@ function analizarPalabraIntento($palabraWordix, $estruturaIntentosWordix, $palab
  * Teniendo en cuenta que una letra sólo puede pasar:
  * de ESTADO_LETRA_DISPONIBLE a ESTADO_LETRA_ENCONTRADA, 
  * de ESTADO_LETRA_DISPONIBLE a ESTADO_LETRA_DESCARTADA, 
- * de ESTADO_LETRA_DISPONIBLE a ESTADO_LETRA_PERTENECE
+ * de ESTADO_LETRA_DISPONIBLE a ESTADO_LETRA_PERTENECE 
  * de ESTADO_LETRA_PERTENECE a ESTADO_LETRA_ENCONTRADA
  * @param array $teclado
  * @param array $estructuraPalabraIntento
