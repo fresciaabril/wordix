@@ -1,7 +1,7 @@
 <?php
 include_once("wordix.php");
 
-//// hola
+
 
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
@@ -106,13 +106,16 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 
 /*
 do {
-    $opcion = ...;
+    $opcion != 8;
 
     
     switch ($opcion) {
         case 1: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
-
+            //Jugar al wordix con una palabra elegida
+            echo "Ingrese su usuario: \n";
+                $usuario = trim(fgets(STDIN));
+            echo "Ingrese u número";
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
@@ -122,8 +125,20 @@ do {
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
+        case 4:
+
+            break;
+        case 5 :
+
+            break;
+        case 6:
         
-            //...
+            break;
+        case 7: 
+
+            break;
+        
+            
     }
-} while ($opcion != X);
+} while ($opcion != 8);
 */
