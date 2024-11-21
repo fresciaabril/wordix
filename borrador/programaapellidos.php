@@ -127,25 +127,31 @@ function seleccionarOpcion() {
     
         $opcion = trim(fgets(STDIN)); 
     } while ($opcion != 8);
-    
+
         return $opcion;
     }
     
+    //// principal 
+
     switch ($opcion) {
         case 1: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
             //Jugar al wordix con una palabra elegida
             echo "Ingrese su usuario: \n";
                 $usuario = trim(fgets(STDIN));
-            echo "Ingrese un número";
+            echo "Ingrese un número: \n";
+
         $min = 1;
-        $max = 20;
-            solicitarNumeroEntre($min, $max);
+        $max = count(cargarColeccionPalabras());
+
+        solicitarNumeroEntre($min, $max);
 
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
+            echo "Ingrese su usuario: \n";
+                $usuario = trim(fgets(STDIN));
+            
             break;
         case 3: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
