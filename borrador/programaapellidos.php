@@ -34,7 +34,7 @@ function cargarColeccionPalabras()
 
 /** Una función llamada cargarPartidas, que inicialice una estructura de datos con ejemplos de Partidas y que
  * retorne la colección de partidas descripta en la sección EXPLICACION 2. Mínimo debe cargar 10 partidas
-* donde vayan variando los jugadores, las palabras, los intentos y los puntajes, en algunos casos los
+ * donde vayan variando los jugadores, las palabras, los intentos y los puntajes, en algunos casos los
  *jugadores se deben repetir.
  * 
  */
@@ -48,7 +48,7 @@ function cargarPartidas( ){
 
 
 
-/** Unafunción que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
+/** Una función que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
  * 
  */
 function retornarPalabra(){
@@ -103,23 +103,32 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //imprimirResultado($partida);
 
 
-
+/* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
 /*
-do {
-     echo "Menú de opciones: \n";
- echo "1 - Jugar al wordix con una palabra elegida \n";
- echo "2 - Jugar al wordix con una palabra aleatoria \n";
- echo "3 - Mostrar una partida \n";
- echo "4 - Mostrar la primer partida ganadora \n";
- echo "5 - Mostrar resumen de Jugador \n";
- echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
- echo "7 - Agregar una palabra de 5 letras a Wordix \n";
- echo "8 - salir \n";
+/* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
 
-    $opcion = trim(fgets(STDIN));
-
-     if($opcion > 8 || $opcion < 1) {
-     echo "Ese número no corresponde a ninguna de las opciones, ingrese uno del 1-8";
+function seleccionarOpcion() {
+    do {
+         echo "Menú de opciones: \n";
+     echo "1 - Jugar al wordix con una palabra elegida \n";
+     echo "2 - Jugar al wordix con una palabra aleatoria \n";
+     echo "3 - Mostrar una partida \n";
+     echo "4 - Mostrar la primer partida ganadora \n";
+     echo "5 - Mostrar resumen de Jugador \n";
+     echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
+     echo "7 - Agregar una palabra de 5 letras a Wordix \n";
+     echo "8 - salir \n";
+    
+        $opcion = trim(fgets(STDIN)); 
+    } while ($opcion != 8);
+    
+        return $opcion;
     }
     
     switch ($opcion) {
@@ -131,7 +140,7 @@ do {
             echo "Ingrese un número";
         $min = 1;
         $max = 20;
-            solicitarNumeroEntre($min, $max)
+            solicitarNumeroEntre($min, $max);
 
             break;
         case 2: 
@@ -157,5 +166,4 @@ do {
         
             
     }
-} while ($opcion != 8);
-*/
+
