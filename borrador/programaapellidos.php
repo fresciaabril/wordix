@@ -32,35 +32,29 @@ function cargarColeccionPalabras()
 }
 
 
-/** 
- * Esta funcion muestra ejemplos de partidas
- *@return array
+/** Una función llamada cargarPartidas, que inicialice una estructura de datos con ejemplos de Partidas y que
+ * retorne la colección de partidas descripta en la sección EXPLICACION 2. Mínimo debe cargar 10 partidas
+* donde vayan variando los jugadores, las palabras, los intentos y los puntajes, en algunos casos los
+ *jugadores se deben repetir.
+ * 
  */
-    function cargarPartidas (){
-    //INT $i, array $ejemploPartidas
-    $cantPart=10;
-    $ejemploPartidas[0]= ["palabraWordix "=> "QUESO" , "jugador" => "maria", "intentos"=> 0, "puntaje" => 0];
-    $ejemploPartidas[1]= ["palabraWordix "=> "MUJER" , "jugador" => "luis", "intentos"=> 1, "puntaje" => 15];
-    $ejemploPartidas[2]= ["palabraWordix "=> "SILLA" , "jugador" => "micaela", "intentos"=> 3, "puntaje" => 13];
-    $ejemploPartidas[3]= ["palabraWordix "=> "LIBRO" , "jugador" => "valeria", "intentos"=> 6, "puntaje" => 10];
-    $ejemploPartidas[4]= ["palabraWordix "=> "FUEGO" , "jugador" => "rocio", "intentos"=> 0, "puntaje" => 0];
-    $ejemploPartidas[5]= ["palabraWordix "=> "CASAS" , "jugador" => "maria", "intentos"=> 4, "puntaje" => 13];
-    $ejemploPartidas[6]= ["palabraWordix "=> "RASGO" , "jugador" => "pablo", "intentos"=> 1, "puntaje" => 16];
-    $ejemploPartidas[7]= ["palabraWordix "=> "VERDE" , "jugador" => "maximo", "intentos"=> 0, "puntaje" => 0];
-    $ejemploPartidas[8]= ["palabraWordix "=> "MELON" , "jugador" => "federico", "intentos"=> 5, "puntaje" => 10];
-    $ejemploPartidas[9]= ["palabraWordix "=> "RATAS" , "jugador" => "abril", "intentos"=> 2, "puntaje" => 16];
-    $ejemploPartidas[10]= ["palabraWordix "=> "TINTO" , "jugador" => "lucas", "intentos"=> 4, "puntaje" => 13];
-    for($i = 0;  $i < $cantPart;  $i++){ 
-        echo "partidas: \n " . ($i+1)  . $ejemploPartidas[$i]["palabrawordix "]  .  $ejemploPartidas[$i]["jugador"] .
-         $ejemploPartidas[$i]["intentos"] . $ejemploPartidas[$i]["puntaje"]. "\n";
-    }
-    return $ejemploPartidas;
-    }
+function cargarPartidas( ){
+
+
+}
 
 
 
 
 
+
+/** Unafunción que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
+ * 
+ */
+function retornarPalabra(){
+
+
+}
 
 
 /**Una función que dado un número de partida,muestre en pantalla los datos de la partida como lo indica la
@@ -126,23 +120,55 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //imprimirResultado($partida);
 
 
-
+/* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
 /*
-do {
-    $opcion != 8;
+/* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
 
+function seleccionarOpcion() {
+    do {
+         echo "Menú de opciones: \n";
+     echo "1 - Jugar al wordix con una palabra elegida \n";
+     echo "2 - Jugar al wordix con una palabra aleatoria \n";
+     echo "3 - Mostrar una partida \n";
+     echo "4 - Mostrar la primer partida ganadora \n";
+     echo "5 - Mostrar resumen de Jugador \n";
+     echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
+     echo "7 - Agregar una palabra de 5 letras a Wordix \n";
+     echo "8 - salir \n";
     
+        $opcion = trim(fgets(STDIN)); 
+    } while ($opcion != 8);
+
+        return $opcion;
+    }
+    
+    //// principal 
+
     switch ($opcion) {
         case 1: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
             //Jugar al wordix con una palabra elegida
             echo "Ingrese su usuario: \n";
                 $usuario = trim(fgets(STDIN));
-            echo "Ingrese u número";
+            echo "Ingrese un número: \n";
+
+        $min = 1;
+        $max = count(cargarColeccionPalabras());
+
+        solicitarNumeroEntre($min, $max);
+
             break;
         case 2: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
+            echo "Ingrese su usuario: \n";
+                $usuario = trim(fgets(STDIN));
+            
             break;
         case 3: 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
@@ -163,9 +189,4 @@ do {
         
             
     }
-} while ($opcion != 8);
-*/
 
-
- cargarPartidas();
-   
