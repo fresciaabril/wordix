@@ -39,7 +39,18 @@ function cargarColeccionPalabras()
  * 
  */
 function cargarPartidas( ){
-
+    $ejemploPartidas[0]= ["palabraWordix "=> "QUESO", "jugador" => "maria", "intentos"=> 0, "puntaje" => 0];
+    $ejemploPartidas[1]= ["palabraWordix "=> "MUJER", "jugador" => "luis", "intentos"=> 1, "puntaje" => 15];
+    $ejemploPartidas [2]= ["palabrawordix "=> "SILLA", "jugador" => "rosa", "intentos"=> 3, "puntaje" => 13];
+    $ejemploPartidas [3]= ["palabrawordix "=> "LIBRO", "jugador" => "marcelo", "intentos"=> 6, "puntaje" => 10];
+    $ejemploPartidas [4]= ["palabrawordix "=> "FUEGO", "jugador" => "julia", "intentos"=> 4, "puntaje" => 10];
+    $ejemploPartidas [5]= ["palabrawordix "=> "CASAS", "jugador" => "camila", "intentos"=> 0, "puntaje" => 0];
+    $ejemploPartidas [6]= ["palabraWordix "=> "RASGO", "jugador" => "francisco", "intentos"=> 1, "puntaje" => 16];
+    $ejemploPartidas [7]= ["palabrawordix "=> "VERDE", "jugador" => "pablo", "intentos"=> 0, "puntaje" => 0];
+    $ejemploPartidas [8]= ["palabrawordix "=> "MELON", "jugador" => "rocio", "intentos"=> 5, "puntaje" => 11];
+    $ejemploPartidas [9]= ["palabraWordix "=> "RATAS", "jugador" => "lucas", "intentos"=> 2, "puntaje" => 16];
+    $ejemploPartidas [10]= ["palabrawordix "=> "TINTO", "jugador" => "abril", "intentos"=> 3, "puntaje" => 15];
+    return $ejemploPartidas;
 
 }
 
