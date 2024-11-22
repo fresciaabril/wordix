@@ -60,11 +60,18 @@ function cargarPartidas( ){
 
 
 /** Unafunción que le pida al usuario ingresar una palabra de 5 letras, y retorne la palabra.
- * 
+ * e
  */
 function retornarPalabra(){
+    echo "Ingrese una palabra de 5 letras: ";
+    $palabra = trim(fgets(STDIN));
+    $palabra  = strtoupper($palabra);
 
-
+    while ((strlen($palabra) != 5) || !esPalabra($palabra)) {
+        echo "Debe ingresar una palabra de 5 letras:";
+        $palabra = strtoupper(trim(fgets(STDIN)));
+    }
+    return $palabra;
 }
 
 
@@ -72,12 +79,16 @@ function retornarPalabra(){
  sección EXPLICACIÓN 1
  * 
  */
-    function mostrarDatosPartida(){
-        //INT $numPart,
-        echo "Ingrese un el numero de partida que desea ver: \n";
-        $numPart=trim(fgets(STDIN));
-
-    }
+    function mostrarDatosPartida($coleccionPartidas, $nro){
+        echo "Partida WORDIX ".$nro.": palabra ".$coleccionPartidas[$nro-1]["palabraWordix"]."\n";
+        echo "Jugador: ".$coleccionPartidas[$nro-1]["jugador"];
+        echo "Puntaje: ".$coleccionPartidas[$nro-1]["puntaje"]." puntos \n";
+        if ($coleccionPartidas[$nro-1]["intentos"]==0){
+            echo "No adivinó la palabra";
+        } else {
+            echo "Adivinó la palabra en ".$coleccionPartidas[$nro-1]["intentos"];
+        }
+        }
 
 
 
@@ -108,6 +119,7 @@ function retornarPalabra(){
         echo "Ingrese el nombre de un jugador ";
         $nomJugador=trim(fgets(STDIN));
         strtolower(string:$nomJugador);
+
     }
 
 /* ****COMPLETAR***** */
@@ -130,12 +142,6 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
-
-/* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
-muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
-opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
-válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
-/*
 /* Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
 muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
 opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
