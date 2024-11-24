@@ -321,7 +321,7 @@ do {
             
         case 7: 
             //Agregar una palabra de 5 letras a Wordix
-            $palabraN = retornarPalabra();     
+            $palabraN = leerPalabra5Letras();     
             $coleccionPalabras[] = agregarPalabra($coleccionPalabras,$palabraN);
         /// Falta verificar si funciona al 100%
             break;
