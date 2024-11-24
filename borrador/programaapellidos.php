@@ -30,7 +30,7 @@ function seleccionarOpcion() {
     $opcion = solicitarNumeroEntre(1, 8); 
 
     return $opcion;
-}
+} ///listo
 
 /**
  * funcion que utiliza un arreglo indexado para almacenar palabras, y retorna dicho arreglo.
@@ -46,7 +46,7 @@ function cargarColeccionPalabras() {
     ];
 
     return ($coleccionPalabras);
-}
+} ///listo
 
 
 /** 
@@ -68,7 +68,7 @@ function cargarPartidas() {
     $coleccionPartidas[10] = ["palabraWordix"=> "CASAS" , "jugador" => "angela", "intentos"=> 3, "puntaje" => 14];
 
     return $coleccionPartidas;
-}
+} //listo
 
 /** 
  * función que le pide al usuario ingresar una palabra de 5 letras, verifica si es apta, si lo es 
@@ -87,51 +87,8 @@ function retornarPalabra() {
     }
 
     return $palabra;
-}
+} /// listo
 
-
-/** 
- * función que dado un número de partida muestra en pantalla los datos de la partida. 
- * @param array
- * @param int
- */
-function mostrarDatosPartida($cargarPartidas, $nro) {
-    echo "Partida WORDIX ".$nro." : palabra ".$cargarPartidas[$nro]["palabraWordix"]."\n";
-    echo "Jugador: ".$cargarPartidas[$nro]["jugador"];
-    echo "Puntaje: ".$cargarPartidas[$nro]["puntaje"]." puntos \n";
-
-        if ($cargarPartidas[$nro]["intentos"]==0) {
-            echo "No adivinó la palabra \n";
-        } else {
-            echo "Adivinó la palabra en ".$cargarPartidas[$nro]["intentos"]." intentos \n";
-        }
-}
-
-
-
-/* FUNCION DESCARTADA - NO USAR
- * función que dada una colección de partidas y el nombre de un jugador, retorn el índice de la primer
- * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna  el valor-1
- * @param array
- * @param string
- * @return int
- 
-function primerPartidaGanada($cargarPartidas, $nombre){
-        //INT $primerPartG,$i
-    $gano=-1;
-    $i=0; //el i es la variable de numero de la coleccion
-    $partGan=false;
-
-        while ($partGan!=true && $cargarPartidas[$i]["ganadas"]!= 0){
-        if($cargarPartidas[$i]["nombre"] == $nombre){
-            $gano="indice";
-            
-        }
-        $i = $i + 1;
-    }
-        return $gano;
-    }*
-    */
 /**
  * funcion que dada una coleccion de partidas y el nombre de algun jugador, retorna el indice de la primer
  * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna el valor -1. 
@@ -151,7 +108,7 @@ function partidaGanada($coleccionPartida, $nombre) {
         $i++;
     }
         return $j;
-}
+} //listo
 
 /**
  * función que solicita al usuario el nombre de un jugador y retorna el nombre en minúsculas,
@@ -170,7 +127,7 @@ function solicitarJugador() {
         } while (esPalabra($nomJugador)!=true);
 
         return $nomJugador;
-}
+} //listo
 
 /** funcion que agrega una palabra nueva ingresada por el usuario a un arreglo de coleccion de palabras.
  * @param array
@@ -184,7 +141,7 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
     }
 
     return $coleccionPalabras;
-}
+} //listo
 
 /**
  * funcion que dado un arreglo de partidas y un numero, muetra en pantalla ese numero de partida
@@ -203,7 +160,7 @@ function datosPartida($cargarPartidas, $nro) {
         } else {
             echo "Adivinó la palabra en ".$cargarPartidas[$nro-1]["intentos"]." intentos \n";
         }
-}
+} /// listo
 
 /** 
  * funcion que almacena el resumen de un jugador que tendrá los siguientes datos: jugador, 
@@ -271,7 +228,7 @@ function resumenJugador($partidas, $nombreJugador) {
 
         return $resumen;
     
-}
+} //listo
 
 /**
  * funcion que identifica si el usuario ya jugo con esa palabra antes o si esta ingresando palabra
