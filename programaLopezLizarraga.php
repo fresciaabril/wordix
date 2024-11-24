@@ -40,13 +40,13 @@ function cargarPartidas() {
     $coleccionPartidas[0] = ["palabraWordix"=> "QUESO" , "jugador" => "pau", "intentos"=> 0, "puntaje" => 0];
     $coleccionPartidas[1] = ["palabraWordix"=> "CASAS" , "jugador" => "alex", "intentos"=> 3, "puntaje" => 14];
     $coleccionPartidas[2] = ["palabraWordix"=> "QUESO" , "jugador" => "agus", "intentos"=> 6, "puntaje" => 10];
-    $coleccionPartidas[3] = ["palabraWordix"=> "SILLA" , "jugador" => "alejo", "intentos"=> 4, "puntaje" => 12];
-    $coleccionPartidas[4] = ["palabraWordix"=> "FUEGO" , "jugador" => "pau", "intentos"=> 2, "puntaje" => 12];
-    $coleccionPartidas[5] = ["palabraWordix"=> "YUYOS" , "jugador" => "alex", "intentos"=> 6, "puntaje" => 12];
-    $coleccionPartidas[6] = ["palabraWordix"=> "RASGO" , "jugador" => "agus", "intentos"=> 1, "puntaje" => 16];
-    $coleccionPartidas[7] = ["palabraWordix"=> "NAVES" , "jugador" => "linda", "intentos"=> 4, "puntaje" => 14];
-    $coleccionPartidas[8] = ["palabraWordix"=> "QUESO" , "jugador" => "valen", "intentos"=> 6, "puntaje" => 0];
-    $coleccionPartidas[9] = ["palabraWordix"=> "NEGRO" , "jugador" => "pau", "intentos"=> 4, "puntaje" => 13];
+    $coleccionPartidas[3] = ["palabraWordix"=> "SILLA" , "jugador" => "alejo", "intentos"=> 4, "puntaje" => 20];
+    $coleccionPartidas[4] = ["palabraWordix"=> "FUEGO" , "jugador" => "pau", "intentos"=> 2, "puntaje" => 15];
+    $coleccionPartidas[5] = ["palabraWordix"=> "YUYOS" , "jugador" => "alex", "intentos"=> 6, "puntaje" => 0];
+    $coleccionPartidas[6] = ["palabraWordix"=> "RASGO" , "jugador" => "agus", "intentos"=> 1, "puntaje" => 15];
+    $coleccionPartidas[7] = ["palabraWordix"=> "NAVES" , "jugador" => "linda", "intentos"=> 4, "puntaje" => 0];
+    $coleccionPartidas[8] = ["palabraWordix"=> "QUESO" , "jugador" => "valen", "intentos"=> 6, "puntaje" => 10];
+    $coleccionPartidas[9] = ["palabraWordix"=> "NEGRO" , "jugador" => "pau", "intentos"=> 4, "puntaje" => 0];
     $coleccionPartidas[10] = ["palabraWordix"=> "CASAS" , "jugador" => "angela", "intentos"=> 3, "puntaje" => 14];
 
     return $coleccionPartidas;
@@ -66,8 +66,9 @@ function seleccionarOpcion() {
     echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
     echo "7 - Agregar una palabra de 5 letras a Wordix \n";
     echo "8 - Salir \n";
-    echo "elija una opcion: ";
-    $opcion=trim(fgets(STDIN));
+    
+    $opcion = solicitarNumeroEntre(1, 8); 
+
     return $opcion;
 }
 
@@ -110,12 +111,13 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
 /**
  * funcion que dada una coleccion de partidas y el nombre de algun jugador, retorna el indice de la primer
  * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna el valor -1. 
- * @param string $usuario
- * @param array $coleccionPartida
+ * @param string 
+ * @param array 
  * @return int
  */
 function primerPartidaGanada($coleccionPartida, $usuario) {
     $ganada = -1;
+
     foreach ($coleccionPartida as $indice => $partida) {
 
         if ($partida["jugador"] == $usuario && $partida["puntaje"] > 0) {
@@ -180,10 +182,9 @@ function primerPartidaGanada($coleccionPartida, $usuario) {
             }
         }
     }
-    $porcent= (INT)($victorias/$n)*100;
+
     $resumen = ["jugador" => $nombreJugador, "partidas" => $totalPartidas,
                 "puntaje" => $puntaje, "victorias" => $victorias,
-                "porcentaje" => $porcent,
                 "intento1" => $intento1, "intento2" => $intento2,
                 "intento3" => $intento3,"intento4" => $intento4,
                 "intento5" => $intento5,"intento6" => $intento6,
@@ -264,8 +265,7 @@ function palabraRepetida($nombre, $palabra, $historial) {
 //Inicialización de variables:
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
-$max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
-$limite = (count($partidas));
+
 //Proceso:
 
 /// $partida = jugarWordix("MELON", strtolower("MaJo"));
@@ -279,6 +279,7 @@ do {
     switch ($opcionIngresada) {
         case 1: //Jugar al wordix con una palabra elegida    
             $usuario = solicitarJugador();
+            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
             $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
             $partidas[] = $nuevaPartida;
@@ -293,35 +294,43 @@ do {
             break;
 
         case 3: //Mostrar una partida 
-            $numeroPartida = solicitarNumeroEntre(1, $limite);
-            datosPartida($partidas, $numeroPartida  );
+            $numeroPartida = solicitarNumeroEntre(1, count($partidas));
+            datosPartida($partidas, $numeroPartida - 1);
             break;
 
         case 4: //Mostrar la primer partida ganadora
             $usuario = solicitarJugador();
-            $partidaGanada = primerPartidaGanada($partidas, $usuario);
-                if($partidaGanada == -1) {
+            $valor = primerPartidaGanada($partidas, $usuario);
+                if($valor == -1) {
                     echo "El jugador ".$usuario." no gano ninguna partida \n";
                 } else {
-                echo "La primer partida ganada es la número: ".$partidaGanada."\n";
+                echo "Su primer partida ganada es la número: ".$valor."\n";
                 }
             break;
 
         case 5 : //Mostrar resumen de un jugador
-            //cambiar el print
             $usuario = solicitarJugador();
             $resumen = (resumenJugador($partidas, $usuario)); 
-            print_r($resumen); /// print_r: imprime información legible para humanos sobre una variable
+            echo "Jugador: ".$usuario."\n"; 
+            echo "Partidas: ".$resumen["partidas"]."\n";
+            echo "Puntaje: ".$resumen["puntaje"]."\n";
+            echo "Victorias: ".$resumen["victorias"]."\n";
+            echo "Intento 1: ".$resumen["intento1"]."\n";
+            echo "Intento 2: ".$resumen["intento2"]."\n";
+            echo "Intento 3: ".$resumen["intento3"]."\n";
+            echo "Intento 4: ".$resumen["intento4"]."\n";
+            echo "Intento 5: ".$resumen["intento5"]."\n";
+            echo "Intento 6: ".$resumen["intento6"]."\n";
             break;
 
         case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
             uasort($partidas, 'cmp');
-            print_r($partidas);
+            print_r($partidas); /// print_r: imprime información legible para humanos sobre una variable
             break;
             
         case 7: 
             //Agregar una palabra de 5 letras a Wordix
-            $palabraN = leerPalabra5Letras();     
+            $palabraN = retornarPalabra();     
             $coleccionPalabras[] = agregarPalabra($coleccionPalabras,$palabraN);
         /// Falta verificar si funciona al 100%
             break;
