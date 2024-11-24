@@ -17,7 +17,7 @@ include_once("wordix.php");
 
 /**
  * funcion que utiliza un arreglo indexado para almacenar palabras, y retorna dicho arreglo.
- * @return array
+ * @return array $coleccionPalabras
  */
 function cargarColeccionPalabras() {
     
@@ -34,7 +34,7 @@ function cargarColeccionPalabras() {
 /** 
  * función que usa un arreglo multidimensional con una estructura de datos con ejemplos de partidas y retorna
  * dicho arreglo.
- * @return array
+ * @return array $coleccionPartidas
  */
 function cargarPartidas() {
     $coleccionPartidas[0] = ["palabraWordix"=> "QUESO" , "jugador" => "pau", "intentos"=> 0, "puntaje" => 0];
@@ -54,7 +54,7 @@ function cargarPartidas() {
 
 /**
  * funcion que muestra una serie de opciones para que el usuario elija, retorna la opcion seleccionada.
- * @return int
+ * @return int $opcion
  */
 function seleccionarOpcion() {
     echo " Menú de opciones: \n";
@@ -73,13 +73,12 @@ function seleccionarOpcion() {
 }
 
 /**
- * funcion que dado un arreglo de partidas y un numero, muetra en pantalla ese numero de partida
- * y en cuantos intentos el jugador adivino la palabra, en caso de no adivinar nunca tambien lo
- * muestra en pantalla.
- * @param array
- * @param int
+ * funcion que recibe como parametros: un arreglo multidimensional de partidas y un numero; muestra en pantalla ese numero 
+ * de partida y en cuantos intentos el jugador adivino la palabra, en caso de no adivinar tambien lo muestra en pantalla.
+ * @param array $cargarPartidas
+ * @param int $nro
  */
-function datosPartida($cargarPartidas, $nro) {
+function datosPartida($coleccionPartidas, $nro) {
     echo "Partida WORDIX ".$nro.": palabra ".$cargarPartidas[$nro-1]["palabraWordix"]."\n";
     echo "Jugador: ".$cargarPartidas[$nro-1]["jugador"]. " \n";
     echo "Puntaje: ".$cargarPartidas[$nro-1]["puntaje"]." puntos \n";
@@ -91,10 +90,12 @@ function datosPartida($cargarPartidas, $nro) {
         }
 }
 
-/** funcion que agrega una palabra nueva ingresada por el usuario a un arreglo de coleccion de palabras.
- * @param array
- * @param string
- * @return array
+/** 
+ * funcion que recibe como parametros: un arreglo indexado de palabras y una palabra nueva, revisa si dicha palabra se encuentra 
+ * o no en el arreglo, de no encontrarse la agrega al arreglo y lo retorna actualizado.
+ * @param array $coleccionPalabras
+ * @param string $palabraNueva
+ * @return array $coleccionPalabras
  */
 function agregarPalabra($coleccionPalabras, $palabraNueva) { 
 
@@ -109,13 +110,13 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
 }
 
 /**
- * funcion que dada una coleccion de partidas y el nombre de algun jugador, retorna el indice de la primer
+ * funcion recibe como parametros: un arreglo multidimensional de partidas y el nombre de un jugador, y retorna el indice de la primer
  * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna el valor -1. 
- * @param string 
- * @param array 
- * @return int
+ * @param array $coleccionPartidas
+ * @param string $jugador
+ * @return int $ganada
  */
-function primerPartidaGanada($coleccionPartida, $usuario) {
+function primerPartidaGanada($coleccionPartidas, $jugador) {
     $ganada = -1;
 
     foreach ($coleccionPartida as $indice => $partida) {
@@ -130,11 +131,11 @@ function primerPartidaGanada($coleccionPartida, $usuario) {
 /** 
  * funcion que almacena el resumen de un jugador que tendrá los siguientes datos: jugador, 
  * partidas,puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6.
- * @param array
- * @param string
- * @return array 
+ * @param array $coleccionPartidas
+ * @param string $nombreJugado
+ * @return array $resumen
  */
- function resumenJugador($partidas, $nombreJugador) {
+ function resumenJugador($coleccionPartidas, $nombreJugador) {
     //int $n, $i, $intento1, $intento2, $intento3, $intento4, $intento5, $intento6, $victorias, $partidas, $puntaje;
     //array $resumen;
     $n = count($partidas); ///count: cuenta todos los elementos de un array o algo de un objeto
@@ -147,9 +148,8 @@ function primerPartidaGanada($coleccionPartida, $usuario) {
     $intento6 = 0;
     $victorias = 0;
     $totalPartidas = 0;
-    $nombre = $nombreJugador;
     $puntaje = 0;
-    $resumen = [];
+    $resumenJugador = [];
 
     for ($i=0; $i < $n ; $i++) { 
         if ($partidas[$i]["jugador"] == $nombre) {
@@ -183,21 +183,21 @@ function primerPartidaGanada($coleccionPartida, $usuario) {
         }
     }
 
-    $resumen = ["jugador" => $nombreJugador, "partidas" => $totalPartidas,
+    $resumenJugador = ["jugador" => $nombreJugador, "partidas" => $totalPartidas,
                 "puntaje" => $puntaje, "victorias" => $victorias,
                 "intento1" => $intento1, "intento2" => $intento2,
                 "intento3" => $intento3,"intento4" => $intento4,
                 "intento5" => $intento5,"intento6" => $intento6,
                 ];
 
-        return $resumen;
+        return $resumenJugador;
     
 }
 
 /**
  * función que solicita al usuario el nombre de un jugador y retorna el nombre en minúsculas,
  * tambien se asegura que el nombre del jugador este compuesto solo por letras.
- * @return string
+ * @return string $nomJugador
  */
 function solicitarJugador() {
     do { 
@@ -228,12 +228,12 @@ function cmp($a, $b) {
 }
 
 /**
- * funcion que identifica si el usuario ya jugo con esa palabra antes o si esta ingresando palabra
- * que ya esta en el arreglo de coleccion de palabras.
- * @param string
- * @param string
- * @param string
- * @return boolean 
+ * funcion que recibe como parametros: el nombre del jugador, una palabra y el historial del jugador,
+ * la funcion identifica si el usuario ya jugo con esa palabra antes.
+ * @param string $nombre
+ * @param string $palabra
+ * @param string $historial
+ * @return boolean $encontrada
  */
 function palabraRepetida($nombre, $palabra, $historial) {
             
@@ -265,6 +265,7 @@ function palabraRepetida($nombre, $palabra, $historial) {
 //Inicialización de variables:
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
+$max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
 
 //Proceso:
 
@@ -279,7 +280,6 @@ do {
     switch ($opcionIngresada) {
         case 1: //Jugar al wordix con una palabra elegida    
             $usuario = solicitarJugador();
-            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
             $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
             $partidas[] = $nuevaPartida;
@@ -287,8 +287,7 @@ do {
 
         case 2: // Jugar al wordix con una palabra aleatoria
             $usuario = solicitarJugador();
-            $nro = rand( 0, count($coleccionPalabras)-1 ); 
-            /// rand: genera un número entero aleatorio / count: cuenta todos los elementos de un array o algo de un objeto
+            $nro = rand( 0, $max-1 ); /// rand: genera un número entero aleatorio 
             $nuevaPartida = jugarWordix($coleccionPalabras[$nro], $usuario);
             $partidas[] = $nuevaPartida;
             break;
