@@ -100,12 +100,15 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
 
     if (!in_array($palabraNueva, $coleccionPalabras)) { ///in_array: comprueba si un valor existe en un array
         $coleccionPalabras[] = $palabraNueva;
+        echo "La palabra se agrego correctamente \n";
+    } else {
+        echo "La palabra ya esta en la coleccion \n"; 
     }
 
     return $coleccionPalabras;
 }
 
-/**
+/** //// LE FALTA QUE FUNCIONE !!!!!
  * funcion que dada una coleccion de partidas y el nombre de algun jugador, retorna el indice de la primer
  * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna el valor -1. 
  */
@@ -203,7 +206,7 @@ function solicitarJugador() {
         echo "Ingrese su nombre: \n";
         $nomJugador = strtolower(trim(fgets(STDIN))); /// strtolower: convierte un string a minúsculas
 
-            if (esPalabra($nomJugador)==false){
+            if (esPalabra($nomJugador)==false) {
                 echo "Nombre de usuario no válido \n";
             }
 
@@ -213,7 +216,7 @@ function solicitarJugador() {
 } 
 
 ////  FALTA  Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
-//// por el nombre del jugador y por la palabra. U lice la función predefinida uasort de php y print_r.
+//// por el nombre del jugador y por la palabra. Utilice la función predefinida uasort de php y print_r.
 
 /**
  * funcion que identifica si el usuario ya jugo con esa palabra antes o si esta ingresando palabra
@@ -243,57 +246,78 @@ function palabraRepetida($nombre, $palabra, $historial) {
 /**************************************/
 
 //Declaración de variables:
-/// falta declarar las benditas variables
+/** 
+ * int $opcionIngresada $num $max $nro $numeroPartida $valor 
+ * string $usuario $palabraN
+ * array $coleccionPalabras $partidas $nuevaPartida $resumen
+ */ 
+/// PUEDEN AGREGARSE MÁS, AUN NO ESTA COMPLETO EL PROGRAMA!!!
 
 //Inicialización de variables:
-
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
-$max = count($coleccionPalabras);
-$limite = count($partidas);
 
 //Proceso:
 
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+/// $partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
+/// falta la opcion 4, 6 y verificar el 7 del menu corregido 
 
-/// falta agregar el menu corregido 
-/*
 do {
-    echo "Menú de opciones: \n";
- echo "1 - Jugar al wordix con una palabra elegida \n";
- echo "2 - Jugar al wordix con una palabra aleatoria \n";
- echo "3 - Mostrar una partida \n";
- echo "4 - Mostrar la primer partida ganadora \n";
- echo "5 - Mostrar resumen de Jugador \n";
- echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
- echo "7 - Agregar una palabra de 5 letras a Wordix \n";
- echo "8 - salir \n";
 
-    $opcion = trim(fgets(STDIN));
+    $opcionIngresada =  seleccionarOpcion();
 
-     if($opcion > 8 || $opcion < 1) {
-     echo "Ese número no corresponde a ninguna de las opciones, ingrese uno del 1-8";
+    switch ($opcionIngresada) {
+        case 1: //Jugar al wordix con una palabra elegida    
+            $usuario = solicitarJugador();
+            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
+            $num = solicitarNumeroEntre(1, $max);
+            $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
+            $partidas[] = $nuevaPartida;
+            break;
+
+        case 2: // Jugar al wordix con una palabra aleatoria
+            $usuario = solicitarJugador();
+            $nro = rand( 0, count($coleccionPalabras)-1 ); 
+            /// rand: genera un número entero aleatorio / count: cuenta todos los elementos de un array o algo de un objeto
+            $nuevaPartida = jugarWordix($coleccionPalabras[$nro], $usuario);
+            $partidas[] = $nuevaPartida;
+            break;
+
+        case 3: //Mostrar una partida 
+            $numeroPartida = solicitarNumeroEntre(1, count($partidas));
+            datosPartida($partidas, $numeroPartida - 1);
+            break;
+
+        case 4: //Mostrar la primer partida ganadora
+        /// lo tiene FRE  
+            break;
+
+        case 5 : //Mostrar resumen de un jugador
+            $usuario = solicitarJugador();
+            $resumen = (resumenJugador($partidas, $usuario)); 
+            print_r($resumen); /// print_r: imprime información legible para humanos sobre una variable
+            break;
+
+        case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
+        /// FALTA HACER ESTA FUNCION 
+            break;
+            
+        case 7: 
+            //Agregar una palabra de 5 letras a Wordix
+            $palabraN = retornarPalabra();     
+            $coleccionPalabras[] = agregarPalabra($coleccionPalabras,$palabraN);
+        /// Falta verificar si funciona al 100%
+            break;
+
+        case 8: ///salir
+            break;  
+
+        default:
+            echo "Ingrese una opción válida.";
+            break;    
     }
 
-    
-    switch ($opcion) {
-        case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
-
-            break;
-        case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
-            break;
-        case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
-            break;
-        
-            //...
-    }
-} while ($opcion != 8);
-*/
+} while($opcionIngresada!=8);

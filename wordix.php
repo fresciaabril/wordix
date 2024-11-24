@@ -31,25 +31,17 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
  *@param int $max
  *@return int
  */
-function solicitarNumeroEntre($min, $max)
-{
-    //int $numero
-
+function solicitarNumeroEntre($min, $max){
+    //int $numeros
+    echo "Ingrese un número entre $min y $max: ";
     $numero = trim(fgets(STDIN));
-
-    if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
-        $numero  = $numero * 1; //con esta operación convierto el string en número.
-    }
-    while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
+    while (!(is_numeric($numero) && $numero == (int)$numero && $numero >= $min && $numero <= $max)) { 
+        /// is_numeric: determina si un string es un número. puede ser float como entero.
         echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
         $numero = trim(fgets(STDIN));
-        if (is_numeric($numero)) {
-            $numero  = $numero * 1;
-        }
     }
     return $numero;
 }
-
 /**
  * Escrbir un texto en color ROJO
  * @param string $texto)
@@ -331,25 +323,25 @@ function esIntentoGanado($estructuraPalabraIntento)
 }
 
 function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
-    $puntos=0;
+    $puntos = 0;
     $puntoIntentos = 0;
-    $puntosVocales=0;
-    $puntosHastaM=0;
-    $puntosConsonantes=0;
-    $palabraWordix2 = strtolower($palabraWordix);
-    $array = str_split($palabraWordix2);
+    $puntosVocales = 0;
+    $puntosHastaM = 0;
+    $puntosConsonantes = 0;
+    $palabraWordix2 = strtolower($palabraWordix); ///strtolower: convierte un string a minúsculas
+    $array = str_split($palabraWordix2); /// str_split: convierte un string en un array
     $vocales = ['a', 'e', 'i', 'o', 'u'];
-    $hastaM= ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m"];
-    $consonante= ["n", "ñ", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
-        foreach($array as $letra){
+    $hastaM = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m"];
+    $consonante = ["n", "ñ", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+        foreach($array as $letra) {
 
-            if (in_array($letra,$vocales )){
+            if (in_array($letra, $vocales)) {
             $puntosVocales= $puntosVocales + 1;
             } 
-            if (in_array($letra,$hastaM )){
+            if (in_array($letra, $hastaM)) {
             $puntosHastaM = $puntosHastaM + 2;
             }
-            if (in_array($letra,$consonante )){
+            if (in_array($letra, $consonante)) {
             $puntosConsonantes = $puntosConsonantes + 3;
             }
         }
@@ -406,11 +398,11 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     if ($ganoElIntento) {
         $nroIntento--;
         $puntaje = obtenerPuntajeWordix();
-        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
+        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!\n";
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;
-        echo "Seguí Jugando Wordix, la próxima será! ";
+        echo "Seguí Jugando Wordix, la próxima será! \n";
     }
 
     $partida = [

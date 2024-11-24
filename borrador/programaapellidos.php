@@ -278,57 +278,63 @@ muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le s
 opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
 válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”. */
     
-    do {
+do {
 
-        $opcionIngresada =  seleccionarOpcion();
+    $opcionIngresada =  seleccionarOpcion();
 
-        switch ($opcionIngresada) {
-            case 1: //Jugar al wordix con una palabra elegida    
-                $usuario = solicitarJugador();
-        
-                $num = solicitarNumeroEntre(1, $max);
-                
-                jugarWordix($coleccionPalabras[$num - 1], $usuario);   
-                $i = count($partidas);
-                $partidas[$i]= ["palabraWordix"=> $coleccionPalabras[$num - 1] , "jugador" => $usuario, "intentos"=> 3, "puntaje" => 14];
+    switch ($opcionIngresada) {
+        case 1: //Jugar al wordix con una palabra elegida    
+            $usuario = solicitarJugador();
+    
+            $num = solicitarNumeroEntre(1, $max);
+            
+            jugarWordix($coleccionPalabras[$num - 1], $usuario);   
+            $i = count($partidas); /// count: cuenta todos los elementos de un array o algo de un objeto
+            $partidas[$i]= ["palabraWordix"=> $coleccionPalabras[$num - 1] , "jugador" => $usuario, "intentos"=> 3, "puntaje" => 14];
 
-                break;
+            break;
 
-            case 2: // Jugar al wordix con una palabra aleatoria
-                $usuario = solicitarJugador();
-                $num = count($coleccionPalabras);
-                $nro = rand(0,$num-1); 
-                jugarWordix($coleccionPalabras[$nro], $usuario);
-                break;
+        case 2: // Jugar al wordix con una palabra aleatoria
+            $usuario = solicitarJugador();
+            $num = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
+            $nro = rand(0,$num-1); /// rand: genera un número entero aleatorio
+            jugarWordix($coleccionPalabras[$nro], $usuario);
+            break;
 
-            case 3: //Mostrar una partida
-                $numero = solicitarNumeroEntre(1, $limite);
-                datosPartida($partidas, $numero);
-                break;
+        case 3: //Mostrar una partida
+            $numero = solicitarNumeroEntre(1, $limite);
+            datosPartida($partidas, $numero);
+            break;
 
-            case 4: //Mostrar la primer partida ganadora
-                $usuario = solicitarJugador();
-                break;
+        case 4: //Mostrar la primer partida ganadora
+            $usuario = solicitarJugador();
+            $valor = partidaGanada($partidas, $usuario);
+            if ($valor == -1 ) {
+                echo $usuario." no ha ganado ninguna partida \n";
+            } else {
+                datosPartida($partidas,$valor);
+            }
+            break;
 
-            case 5 : //Mostrar resumen de Jugador
-                $usuario = solicitarJugador();
-                print_r(resumenJugador($partidas, $usuario));
-                break;
+        case 5 : //Mostrar resumen de Jugador
+            $usuario = solicitarJugador();
+            print_r(resumenJugador($partidas, $usuario)); /// print_r: imprime información legible para humanos sobre una variable
+            break;
 
-            case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
-                break;
+        case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
+            break;
 
-            case 7: 
-                //Agregar una palabra de 5 letras a Wordix
-                $palabraN = retornarPalabra();
-                $coleccionPalabras = agregarPalabra($coleccionPalabras,$palabraN);
-                break;
+        case 7: 
+            //Agregar una palabra de 5 letras a Wordix
+            $palabraN = retornarPalabra();
+            $coleccionPalabras = agregarPalabra($coleccionPalabras,$palabraN);
+            break;
 
-            case 8: ///salir
-                break;  
+        case 8: ///salir
+            break;  
 
-            default:
-                echo "Ingrese una opción válida.";
-                break;    
-        }
-    } while($opcionIngresada!=8);
+        default:
+            echo "Ingrese una opción válida.";
+            break;    
+    }
+} while($opcionIngresada!=8);
