@@ -116,7 +116,6 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
  */
 function primerPartidaGanada($coleccionPartida, $usuario) {
     $ganada = -1;
-
     foreach ($coleccionPartida as $indice => $partida) {
 
         if ($partida["jugador"] == $usuario && $partida["puntaje"] > 0) {
@@ -181,7 +180,7 @@ function primerPartidaGanada($coleccionPartida, $usuario) {
             }
         }
     }
-    $porcent= (INT)($victorias/$n);
+    $porcent= (INT)($victorias/$n)*100;
     $resumen = ["jugador" => $nombreJugador, "partidas" => $totalPartidas,
                 "puntaje" => $puntaje, "victorias" => $victorias,
                 "porcentaje" => $porcent,
@@ -265,7 +264,8 @@ function palabraRepetida($nombre, $palabra, $historial) {
 //Inicialización de variables:
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
-
+$max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
+$limite = (count($partidas));
 //Proceso:
 
 /// $partida = jugarWordix("MELON", strtolower("MaJo"));
@@ -279,7 +279,6 @@ do {
     switch ($opcionIngresada) {
         case 1: //Jugar al wordix con una palabra elegida    
             $usuario = solicitarJugador();
-            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
             $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
             $partidas[] = $nuevaPartida;
@@ -294,14 +293,14 @@ do {
             break;
 
         case 3: //Mostrar una partida 
-            $numeroPartida = solicitarNumeroEntre(1, count($partidas));
-            datosPartida($partidas, $numeroPartida - 1);
+            $numeroPartida = solicitarNumeroEntre(1, $limite);
+            datosPartida($partidas, $numeroPartida  );
             break;
 
         case 4: //Mostrar la primer partida ganadora
             $usuario = solicitarJugador();
-            $valor = primerPartidaGanada($partidas, $usuario);
-                if($valor == -1) {
+            $partidaGanada = primerPartidaGanada($partidas, $usuario);
+                if($partidaGanada == -1) {
                     echo "El jugador ".$usuario." no gano ninguna partida \n";
                 } else {
                 echo "La primer partida ganada es la número: ".$partidaGanada."\n";
@@ -309,6 +308,7 @@ do {
             break;
 
         case 5 : //Mostrar resumen de un jugador
+            //cambiar el print
             $usuario = solicitarJugador();
             $resumen = (resumenJugador($partidas, $usuario)); 
             print_r($resumen); /// print_r: imprime información legible para humanos sobre una variable
