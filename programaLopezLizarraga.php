@@ -108,25 +108,23 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
     return $coleccionPalabras;
 }
 
-/** //// LE FALTA QUE FUNCIONE !!!!!
+/**
  * funcion que dada una coleccion de partidas y el nombre de algun jugador, retorna el indice de la primer
  * partida ganada por dicho jugador. Si el jugador ganó ninguna partida, retorna el valor -1. 
+ * @param string 
+ * @param array 
+ * @return int
  */
-function partidaGanada($coleccionPartida, $nombre) {
-    //int $n, $i, $j;
-    $n = count($coleccionPartida); /// count: cuenta todos los elementos de un array o algo de un objeto
-    $i = 0;
-    $j = -1;
+function primerPartidaGanada($coleccionPartida, $usuario) {
+    $ganada = -1;
 
-    while ($i < $n && ($coleccionPartida[$i]["jugador"] != $nombre && $coleccionPartida[$i]["puntaje"] < 1)) {
+    foreach ($coleccionPartida as $indice => $partida) {
 
-        if ($coleccionPartida[$i]["puntaje"] > 0) {
-            $j = $i;
+        if ($partida["jugador"] == $usuario && $partida["puntaje"] > 0) {
+            $ganada = $indice; // Retorna el índice de la primera partida ganada
         }
-
-        $i++;
     }
-        return $j;
+        return $ganada;
 }
 
 /** 
@@ -215,8 +213,19 @@ function solicitarJugador() {
         return $nomJugador;
 } 
 
-////  FALTA  Una función sin retorno que, dada una colección de partidas, muestre la colección de partidas ordenada
-//// por el nombre del jugador y por la palabra. Utilice la función predefinida uasort de php y print_r.
+/**
+ * funcion que dadas 2 opciones las compara, si son iguales retorna "0" si una es menor que la otra retorna "-1
+ * /// ARREGLAR DESCRIPCION 
+ * @param //// no se todavia
+ * @param //// x2
+ * @return /// x3
+ */
+function cmp($a, $b) {
+    if ($a == $b) {
+        return 0;
+    }
+    return ($a < $b) ? -1 : 1;
+}
 
 /**
  * funcion que identifica si el usuario ya jugo con esa palabra antes o si esta ingresando palabra
@@ -263,8 +272,6 @@ $partidas = cargarPartidas();
 //print_r($partida);
 //imprimirResultado($partida);
 
-/// falta la opcion 4, 6 y verificar el 7 del menu corregido 
-
 do {
 
     $opcionIngresada =  seleccionarOpcion();
@@ -292,7 +299,13 @@ do {
             break;
 
         case 4: //Mostrar la primer partida ganadora
-        /// lo tiene FRE  
+            $usuario = solicitarJugador();
+            $valor = primerPartidaGanada($partidas, $usuario);
+                if($valor == -1) {
+                    echo "El jugador ".$usuario." no gano ninguna partida \n";
+                } else {
+                echo "La primer partida ganada es la número: ".$partidaGanada."\n";
+                }
             break;
 
         case 5 : //Mostrar resumen de un jugador
@@ -302,7 +315,8 @@ do {
             break;
 
         case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
-        /// FALTA HACER ESTA FUNCION 
+            uasort($partidas, 'cmp');
+            print_r($partidas);
             break;
             
         case 7: 
