@@ -243,7 +243,7 @@ function palabraRepetida($nombre, $palabra, $historial) {
 /**************************************/
 
 //Declaración de variables:
-
+/// falta declarar las benditas variables
 
 //Inicialización de variables:
 
@@ -259,7 +259,7 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //imprimirResultado($partida);
 
 
-
+/// falta agregar el menu corregido 
 /*
 do {
     echo "Menú de opciones: \n";
