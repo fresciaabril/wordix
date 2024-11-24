@@ -330,15 +330,48 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
-/**
- * ****COMPLETAR***** documentación de la intefaz
- */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
-{
+function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
+    $puntos=0;
+    $puntoIntentos = 0;
+    $puntosVocales=0;
+    $puntosHastaM=0;
+    $puntosConsonantes=0;
+    $palabraWordix2 = strtolower($palabraWordix);
+    $array = str_split($palabraWordix2);
+    $vocales = ['a', 'e', 'i', 'o', 'u'];
+    $hastaM= ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m"];
+    $consonante= ["n", "ñ", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+        foreach($array as $letra){
 
-    /* ****COMPLETAR***** cuerpo de la función*/
-    return 0;
+            if (in_array($letra,$vocales )){
+            $puntosVocales= $puntosVocales + 1;
+            } 
+            if (in_array($letra,$hastaM )){
+            $puntosHastaM = $puntosHastaM + 2;
+            }
+            if (in_array($letra,$consonante )){
+            $puntosConsonantes = $puntosConsonantes + 3;
+            }
+        }
+         if ($nroIntento == 1) {
+        $puntoIntentos = 6;
+        } elseif ($nroIntento==2) {
+        $puntoIntentos = 5;
+        } elseif ($nroIntento==3) {
+        $puntoIntentos = 4;
+        } elseif ($nroIntento==4) {
+           $puntoIntentos = 3;
+        } elseif ($nroIntento==5) {
+        $puntoIntentos = 2;
+        } elseif ($nroIntento==6) {
+        $puntoIntentos = 1;
+        }
+
+    $puntos = $puntosVocales + $puntosHastaM + $puntosConsonantes + $puntoIntentos;
+    
+        return $puntos;
 }
+
 
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
