@@ -215,10 +215,9 @@ function solicitarJugador() {
 
 /**
  * funcion que dadas 2 opciones las compara, si son iguales retorna "0" si una es menor que la otra retorna "-1
- * /// ARREGLAR DESCRIPCION 
- * @param //// no se todavia
- * @param //// x2
- * @return /// x3
+ * @param array $partidaUno
+ * @param array $partidaDos
+ * @return array
  */
 function compararPartidas($partidaUno, $partidaDos){
     if ($partidaUno["jugador"] == $partidaDos["jugador"]) {
