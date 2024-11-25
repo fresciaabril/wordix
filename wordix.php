@@ -332,7 +332,7 @@ function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
     $array = str_split($palabraWordix2); /// str_split: convierte un string en un array
     $vocales = ['a', 'e', 'i', 'o', 'u'];
     $hastaM = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m"];
-    $consonante = ["n", "ñ", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+    $consonante = ["n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
         foreach($array as $letra) {
 
             if (in_array($letra, $vocales)) {
