@@ -66,26 +66,27 @@ function seleccionarOpcion() {
     echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
     echo "7 - Agregar una palabra de 5 letras a Wordix \n";
     echo "8 - Salir \n";
-    echo "elija una opcion: ";
-    $opcion=trim(fgets(STDIN));
+    echo " - elija una opcion -  \n";
+    $opcion = trim(fgets(STDIN));
     return $opcion;
 }
 
 /**
- * funcion que recibe como parametros: un arreglo multidimensional de partidas y un numero; muestra en pantalla ese numero 
- * de partida y en cuantos intentos el jugador adivino la palabra, en caso de no adivinar tambien lo muestra en pantalla.
+ * funcion que recibe como parametros: un arreglo multidimensional de partidas y un numero; muestra en pantalla los datos 
+ * de la partida junto con el numero de partida y en cuantos intentos el jugador adivino la palabra, en caso de no adivinar 
+ * tambien lo muestra en pantalla.
  * @param array $cargarPartidas
  * @param int $nro
  */
 function datosPartida($cargarPartidas, $nro) {
-    echo "\n Partida WORDIX ".$nro.": palabra ".$cargarPartidas[$nro-1]["palabraWordix"]."\n";
+    echo "Partida WORDIX ".$nro.": palabra ".$cargarPartidas[$nro-1]["palabraWordix"]."\n";
     echo "Jugador: ".$cargarPartidas[$nro-1]["jugador"]. " \n";
     echo "Puntaje: ".$cargarPartidas[$nro-1]["puntaje"]." puntos \n";
 
-        if ($cargarPartidas[$nro-1]["intentos"]==0){
+        if ($cargarPartidas[$nro-1]["intentos"] == 0){
             echo "No adivinó la palabra \n";
         } else {
-            echo "Adivinó la palabra en ".$cargarPartidas[$nro-1]["intentos"]." intentos \n \n";
+            echo "Adivinó la palabra en ".$cargarPartidas[$nro-1]["intentos"]." intentos \n";
         }
 }
 
@@ -253,7 +254,6 @@ function palabraRepetida($nombre, $palabra, $historial) {
         }
         
     }
-
     return $encontrada;
 }
 
@@ -263,9 +263,9 @@ function palabraRepetida($nombre, $palabra, $historial) {
 
 //Declaración de variables:
 /** 
- * int $opcionIngresada $num $max $nro $numeroPartida $valor $i $n $j $h
- * string $usuario $palabraN
- * array $coleccionPalabras $partidas $nuevaPartida $resumen $numAnterior $numAnterior2
+ * int $opcionIngresada, $num, $max, $nro, $numeroPartida, $valor, $i, $n, $j, $h
+ * string $usuario, $palabraN
+ * array $coleccionPalabras, $partidas, $nuevaPartida, $resumen, $numAnterior, $numAnterior2
  */ 
 
 //Inicialización de variables:
@@ -278,17 +278,12 @@ $numAnterior2 = [];
 
 //Proceso:
 
-/// $partida = jugarWordix("MELON", strtolower("MaJo"));
-//print_r($partida);
-//imprimirResultado($partida);
-
 do {
 
     $opcionIngresada =  seleccionarOpcion();
 
     switch ($opcionIngresada) {
-        case 1: 
-        //Jugar al wordix con una palabra elegida    
+        case 1: //Jugar al wordix con una palabra elegida    
             $usuario = solicitarJugador();
             $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
@@ -304,8 +299,7 @@ do {
             $partidas[] = $nuevaPartida;
             break;
 
-        case 2: 
-        // Jugar al wordix con una palabra aleatoria
+        case 2: // Jugar al wordix con una palabra aleatoria
             $usuario = solicitarJugador();
             $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $nro = rand(0, $max-1); /// rand: genera un número entero aleatorio
@@ -320,14 +314,12 @@ do {
             $partidas[] = $nuevaPartida;
             break;
 
-        case 3: 
-        //Mostrar una partida 
+        case 3: //Mostrar una partida 
             $numeroPartida = solicitarNumeroEntre(1, count($partidas));
             datosPartida($partidas, $numeroPartida - 1);
             break;
 
-        case 4: 
-        //Mostrar la primer partida ganadora
+        case 4: //Mostrar la primer partida ganadora
             $usuario = solicitarJugador();
             $valor = primerPartidaGanada($partidas, $usuario);
                 if($valor == -1) {
@@ -337,8 +329,7 @@ do {
                 }
             break;
 
-        case 5 : 
-        //Mostrar resumen de un jugador
+        case 5 : //Mostrar resumen de un jugador
             $usuario = solicitarJugador();
             $resumen = (resumenJugador($partidas, $usuario)); 
             echo "Jugador: ".$usuario."\n"; 
@@ -353,23 +344,20 @@ do {
             echo "Intento 6: ".$resumen["intento6"]."\n";
             break;
 
-        case 6: 
-        //Mostrar listado de partidas ordenadas por jugador y por palabra
+        case 6:  //Mostrar listado de partidas ordenadas por jugador y por palabra
             uasort($partidas, 'compararPartidas');
             print_r($partidas);
             
-        case 7: 
-        //Agregar una palabra de 5 letras a Wordix
+        case 7: //Agregar una palabra de 5 letras a Wordix
             $palabraN = leerPalabra5Letras();     
             $coleccionPalabras = agregarPalabra($coleccionPalabras,$palabraN);
            /// Falta verificar si funciona al 100%
             break;
 
-        case 8: 
-        ///salir
+        case 8: ///salir
             break;  
 
-        default:
+        default: 
             echo "Ingrese una opción válida.";
             break;    
     }
