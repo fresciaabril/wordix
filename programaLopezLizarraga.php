@@ -120,10 +120,10 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
     $limite = count($coleccionPartidas);
         while ($i < $limite && ($coleccionPartidas[$i]["jugador"] != $usuario || $coleccionPartidas[$i]["puntaje"] < 1)) {
             $i ++;
+        }
             if ($i < $limite && $coleccionPartidas[$i]["puntaje"] > 0) {
                 $ganada = $i;
             }
-        }
     return $ganada;
 }
 
