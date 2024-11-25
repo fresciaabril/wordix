@@ -219,12 +219,19 @@ function solicitarJugador() {
  * @param //// x2
  * @return /// x3
  */
-function cmp($a, $b) {
-    if ($a == $b) {
-        return 0;
+function compararPartidas($partidaUno, $partidaDos){
+    if ($partidaUno["jugador"] == $partidaDos["jugador"]) {
+      if ($partidaUno["palabraWordix"] == $partidaDos["palabraWordix"]) {
+        $orden = 0;
+      } else {
+        $orden = ($partidaUno["palabraWordix"] < $partidaDos["palabraWordix"]) ? -1 : 1;
+      }
+    } else {
+      $orden = ($partidaUno["jugador"] < $partidaDos["jugador"]) ? -1 : 1;
     }
-    return ($a < $b) ? -1 : 1;
-}
+    return $orden;
+  }
+  
 
 /**
  * funcion que identifica si el usuario ya jugo con esa palabra antes o si esta ingresando palabra
@@ -315,7 +322,7 @@ do {
             break;
 
         case 6: //Mostrar listado de partidas ordenadas por jugador y por palabra
-            uasort($partidas, 'cmp');
+            uasort($partidas, 'compararPartidas');
             print_r($partidas);
             break;
             
