@@ -273,7 +273,6 @@ function palabraRepetida($nombre, $palabra, $historial) {
 //Inicialización de variables:
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
-$max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
 
 //Proceso:
 
@@ -288,6 +287,7 @@ do {
     switch ($opcionIngresada) {
         case 1: //Jugar al wordix con una palabra elegida    
             $usuario = solicitarJugador();
+            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
             $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
             $partidas[] = $nuevaPartida;
@@ -295,7 +295,8 @@ do {
 
         case 2: // Jugar al wordix con una palabra aleatoria
             $usuario = solicitarJugador();
-            $nro = rand( 0, $max-1 ); /// rand: genera un número entero aleatorio 
+            $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
+            $nro = rand(0, $max-1); /// rand: genera un número entero aleatorio 
             $nuevaPartida = jugarWordix($coleccionPalabras[$nro], $usuario);
             $partidas[] = $nuevaPartida;
             break;
@@ -337,7 +338,7 @@ do {
         case 7: 
             //Agregar una palabra de 5 letras a Wordix
             $palabraN = leerPalabra5Letras();     
-            $coleccionPalabras[] = agregarPalabra($coleccionPalabras,$palabraN);
+            $coleccionPalabras = agregarPalabra($coleccionPalabras,$palabraN);
         /// Falta verificar si funciona al 100%
             break;
 
