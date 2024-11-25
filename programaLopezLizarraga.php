@@ -264,15 +264,18 @@ function palabraRepetida($nombre, $palabra, $historial) {
 
 //Declaración de variables:
 /** 
- * int $opcionIngresada $num $max $nro $numeroPartida $valor 
+ * int $opcionIngresada $num $max $nro $numeroPartida $valor $i $n $j $h
  * string $usuario $palabraN
- * array $coleccionPalabras $partidas $nuevaPartida $resumen
+ * array $coleccionPalabras $partidas $nuevaPartida $resumen $numAnterior $numAnterior2
  */ 
-/// PUEDEN AGREGARSE MÁS, AUN NO ESTA COMPLETO EL PROGRAMA!!!
 
 //Inicialización de variables:
 $coleccionPalabras = cargarColeccionPalabras();
 $partidas = cargarPartidas(); 
+$i = 0;
+$n = 0;
+$numAnterior = [];
+$numAnterior2 = [];
 
 //Proceso:
 
@@ -289,6 +292,14 @@ do {
             $usuario = solicitarJugador();
             $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
             $num = solicitarNumeroEntre(1, $max);
+                for ($j = 0; $j < $i; $j++) {
+                    while ($num == $numAnterior[$j]) { 
+                        echo "Ese numero ya fue elegido. Ingrese otro numero: \n";
+                        $num = solicitarNumeroEntre(1, $max);
+                    }   
+                }
+            $numAnterior[$i] = $num;
+            $i++;
             $nuevaPartida = jugarWordix($coleccionPalabras[$num - 1], $usuario);   
             $partidas[] = $nuevaPartida;
             break;
@@ -296,7 +307,14 @@ do {
         case 2: // Jugar al wordix con una palabra aleatoria
             $usuario = solicitarJugador();
             $max = count($coleccionPalabras); /// count: cuenta todos los elementos de un array o algo de un objeto
-            $nro = rand(0, $max-1); /// rand: genera un número entero aleatorio 
+            $nro = rand(0, $max-1); /// rand: genera un número entero aleatorio
+                for ($h = 0; $h < $n; $h++){
+                    while ($nro == $numAnterior2[$h]) {
+                        $nro = rand( 0, $max-1 );
+                    }   
+                }
+            $numAnterior2[$n] = $nro;
+            $n++; 
             $nuevaPartida = jugarWordix($coleccionPalabras[$nro], $usuario);
             $partidas[] = $nuevaPartida;
             break;
@@ -351,3 +369,4 @@ do {
     }
 
 } while($opcionIngresada!=8);
+?>
