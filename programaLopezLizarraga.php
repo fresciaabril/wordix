@@ -219,8 +219,8 @@ function solicitarJugador() {
  * @param array $coleccionPartidas
  */
 function partidasOrdenadas($coleccionPartidas) {
-    uasort($partidas, 'compararPartidas');
-    print_r($partidas);
+    uasort($coleccionPartidas, 'compararPartidas');
+    print_r($coleccionPartidas);
 }
 
 /**
