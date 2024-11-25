@@ -238,7 +238,7 @@ function compararPartidas($partidaUno, $partidaDos){
  * la funcion identifica si el usuario ya jugo con esa palabra antes.
  * @param string $nombre
  * @param string $palabra
- * @param  $historial
+ * @param array $historial
  * @return boolean $encontrada
  */
 function palabraRepetida($nombre, $palabra, $historial) {
