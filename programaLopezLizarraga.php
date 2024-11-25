@@ -205,11 +205,11 @@ function solicitarJugador() {
         echo "Ingrese su nombre: \n";
         $nomJugador = strtolower(trim(fgets(STDIN))); /// strtolower: convierte un string a minúsculas
 
-            if (esPalabra($nomJugador) == false) {
+            if (esPalabra($nomJugador) == false || $nomJugador == "") {
                 echo "Nombre de usuario no válido \n";
             }
 
-        } while (esPalabra($nomJugador)!=true);
+        } while (esPalabra($nomJugador)!=true || $nomJugador == "");
 
         return $nomJugador;
 } 
