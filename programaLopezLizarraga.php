@@ -116,14 +116,15 @@ function agregarPalabra($coleccionPalabras, $palabraNueva) {
  */
 function primerPartidaGanada($coleccionPartidas, $usuario) {
     $ganada = -1;
-
-    foreach ($coleccionPartidas as $indice => $partida) {
-
-        if ($partida["jugador"] == $usuario && $partida["puntaje"] > 0) {
-            $ganada = $indice; // Retorna el índice de la primera partida ganada
+    $i = 0;
+    $limite = count($coleccionPartidas);
+        while ($i < $limite && ($coleccionPartidas[$i]["jugador"] != $usuario || $coleccionPartidas[$i]["puntaje"] < 1)) {
+            $i ++;
+            if ($i < $limite && $coleccionPartidas[$i]["puntaje"] > 0) {
+                $ganada = $i;
+            }
         }
-    }
-        return $ganada;
+    return $ganada;
 }
 
 /** 
@@ -347,7 +348,7 @@ do {
             $usuario = solicitarJugador();
             $valor = primerPartidaGanada($partidas, $usuario);
                 if($valor == -1) {
-                    echo "El jugador ".$usuario." no gano ninguna partida \n";
+                    echo "El jugador ". $usuario ." no gano ninguna partida \n";
                 } else {
                 echo "Su primer partida ganada es la número: ".$valor."\n";
                 }
