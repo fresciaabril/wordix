@@ -77,14 +77,17 @@ function seleccionarOpcion() {
  * @param int $nro
  */
 function datosPartida($cargarPartidas, $nro) {
-    echo "Partida WORDIX ".$nro.": palabra ".$cargarPartidas[$nro-1]["palabraWordix"]."\n";
-    echo "Jugador: ".$cargarPartidas[$nro-1]["jugador"]. " \n";
-    echo "Puntaje: ".$cargarPartidas[$nro-1]["puntaje"]." puntos \n";
+    echo"\n****************************************\n";
+    echo "Partida WORDIX ".$nro.": palabra ".$cargarPartidas[$nro]["palabraWordix"]."\n";
+    echo "Jugador: ".$cargarPartidas[$nro]["jugador"]. " \n";
+    echo "Puntaje: ".$cargarPartidas[$nro]["puntaje"]." puntos \n";
 
-        if ($cargarPartidas[$nro-1]["intentos"] == 0){
-            echo "No adivinó la palabra \n";
+        if ($cargarPartidas[$nro]["intentos"] == 0){
+            echo "Intento: No adivinó la palabra \n";
+            echo"****************************************\n";
         } else {
-            echo "Adivinó la palabra en ".$cargarPartidas[$nro-1]["intentos"]." intentos \n";
+            echo "Intento: adivinó la palabra en ".$cargarPartidas[$nro]["intentos"]." intentos \n";
+             echo"****************************************\n";
         }
 }
 
@@ -129,7 +132,7 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
 
 /** 
  * funcion que almacena el resumen de un jugador que tendrá los siguientes datos: jugador, 
- * partidas,puntaje, victorias, intento1, intento2, intento3, intento4, intento5, intento6.
+ * partidas,puntaje, victorias,porcentaje, intento1, intento2, intento3, intento4, intento5, intento6.
  * @param array $coleccionPartidas
  * @param string $nombreJugado
  * @return array $resumen
@@ -137,8 +140,8 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
  function resumenJugador($coleccionPartidas, $nombreJugador) {
     //int $n, $i, $intento1, $intento2, $intento3, $intento4, $intento5, $intento6, $victorias, $partidas, $puntaje;
     //array $resumen;
-    $partida=$coleccionPartidas;
-    $n = count($partida);  //count: cuenta todos los elementos de un array o algo de un objeto
+    $partida = $coleccionPartidas;
+    $num = count($partida);
     $i = 0;
     $intento1 = 0;
     $intento2 = 0;
@@ -152,7 +155,7 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
     $puntaje = 0;
     $resumenJugador = [];
 
-    for ($i = 0; $i < $n ; $i++) { 
+    for ($i = 0; $i < $num ; $i++) { 
         if ($partida[$i]["jugador"] == $nombreJugador) {
             $totalPartidas++;
             $puntaje = $puntaje + $partida[$i]["puntaje"];
@@ -181,10 +184,10 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
                     break;
                 
             }
-        }
+        
     }
-
-    $porcent= (INT)(($victorias*100)/$n);
+    $cant = $totalPartidas;  //count: cuenta todos los elementos de un array o algo de un objeto
+    $porcent = (INT)(($cant*100)/$victorias); //PREGUNTAR POR EL PORCENTAJE
     $resumenJugador = ["jugador" => $nombreJugador, "partidas" => $totalPartidas, "puntaje" => $puntaje,
                         "victorias" => $victorias, "porcentaje" => $porcent, "intento1" => $intento1, 
                         "intento2" => $intento2, "intento3" => $intento3,"intento4" => $intento4,
@@ -194,7 +197,7 @@ function primerPartidaGanada($coleccionPartidas, $usuario) {
         return $resumenJugador;
     
 }
-
+ }
 /**
  * función que solicita al usuario el nombre de un jugador y retorna el nombre en minúsculas,
  * tambien se asegura que el nombre del jugador este compuesto solo por letras.
@@ -275,17 +278,20 @@ function palabraRepetida($nombre, $palabra, $historial) {
 function mostrarResumen($coleccionPartidas, $jugador) {
 
     $resumen = (resumenJugador($coleccionPartidas, $jugador)); 
+    echo"\n****************************************\n";
     echo "Jugador: " . $jugador . "\n"; 
     echo "Partidas: " . $resumen["partidas"] . "\n";
-    echo "Puntaje: ". $resumen["puntaje"] . "\n";
+    echo "Puntaje Total: ". $resumen["puntaje"] . "\n";
     echo "Victorias: " . $resumen["victorias"] . "\n";
-    echo "Porcentaje: " . $resumen["porcentaje"] . "% \n";
-    echo "Intento 1: " . $resumen["intento1"] . "\n";
-    echo "Intento 2: " . $resumen["intento2"] . "\n";
-    echo "Intento 3: " . $resumen["intento3"] . "\n";
-    echo "Intento 4: " . $resumen["intento4"] . "\n";
-    echo "Intento 5: " . $resumen["intento5"] . "\n";
-    echo "Intento 6: " . $resumen["intento6"] . "\n";
+    echo "Porcentaje Victorias: " . $resumen["porcentaje"] . "% \n";
+    echo "Adivinadas: \n";
+    echo "      Intento 1: " . $resumen["intento1"] . "\n";
+    echo "      Intento 2: " . $resumen["intento2"] . "\n";
+    echo "      Intento 3: " . $resumen["intento3"] . "\n";
+    echo "      Intento 4: " . $resumen["intento4"] . "\n";
+    echo "      Intento 5: " . $resumen["intento5"] . "\n";
+    echo "      Intento 6: " . $resumen["intento6"] . "\n";
+    echo"****************************************\n";
 
 }
 
@@ -340,23 +346,24 @@ do {
             break;
 
         case 3: //Mostrar una partida 
-            $numeroPartida = solicitarNumeroEntre(1, count($partidas));
-            datosPartida($partidas, $numeroPartida - 1);
+            $numeroPartida = solicitarNumeroEntre(0, count($partidas) - 1);
+            datosPartida($partidas, $numeroPartida);
             break;
 
         case 4: //Mostrar la primer partida ganadora
             $usuario = solicitarJugador();
             $valor = primerPartidaGanada($partidas, $usuario);
-                if($valor == -1) {
-                    echo "El jugador ". $usuario ." no gano ninguna partida \n";
-                } else {
-                echo "Su primer partida ganada es la número: ".$valor."\n";
-                }
+            if ($valor != -1) {
+                datosPartida($partidas, $valor);
+            } else {
+                echo $usuario . " no gano ninguna partida \n";
+            }
             break;
 
         case 5 : //Mostrar resumen de un jugador
             $usuario = solicitarJugador();
             mostrarResumen($partidas, $usuario);
+            //SI INGRESA UN NOMBRE QUE NO TIENE HISTORIAL LARGA ERROR
             break;
 
         case 6:  //Mostrar listado de partidas ordenadas por jugador y por palabra
