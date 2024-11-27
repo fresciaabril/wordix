@@ -356,7 +356,7 @@ include_once("wordix.php");
                 break;
 
             case 6:  //Mostrar listado de partidas ordenadas por jugador y por palabra
-                partidasOrdenadas($partidas);
+                partidasOrdenadas($partidas);  
                 break;
 
             case 7: //Agregar una palabra de 5 letras a Wordix
