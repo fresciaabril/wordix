@@ -322,7 +322,14 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
-function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
+/**
+ * funcion que recibe una palabra de Wordix y el nro de intentos de un jugador, y en base a eso caldula la cantidad
+ * de puntos que gano el jugador, retorna dichos puntos.
+ * @param string
+ * @param int
+ * @return int 
+ */
+function obtenerPuntajeWordix($palabraWordix, $nroIntento) {
     $puntos = 0;
     $puntoIntentos = 0;
     $puntosVocales = 0;
@@ -330,7 +337,7 @@ function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
     $puntosConsonantes = 0;
     $palabraWordix2 = strtolower($palabraWordix); ///strtolower: convierte un string a minúsculas
     $array = str_split($palabraWordix2); /// str_split: convierte un string en un array
-    $vocales = ['a', 'e', 'i', 'o', 'u'];
+    $vocales = ["a", "e", "i", "o", "u"];
     $hastaM = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m"];
     $consonante = ["n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
         foreach($array as $letra) {
@@ -347,15 +354,15 @@ function obtenerPuntajeWordix($palabraWordix,$nroIntento) {
         }
          if ($nroIntento == 1) {
         $puntoIntentos = 6;
-        } elseif ($nroIntento==2) {
+        } elseif ($nroIntento == 2) {
         $puntoIntentos = 5;
-        } elseif ($nroIntento==3) {
+        } elseif ($nroIntento == 3) {
         $puntoIntentos = 4;
-        } elseif ($nroIntento==4) {
+        } elseif ($nroIntento == 4) {
            $puntoIntentos = 3;
-        } elseif ($nroIntento==5) {
+        } elseif ($nroIntento == 5) {
         $puntoIntentos = 2;
-        } elseif ($nroIntento==6) {
+        } elseif ($nroIntento == 6) {
         $puntoIntentos = 1;
         }
 

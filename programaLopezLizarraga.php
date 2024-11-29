@@ -60,10 +60,10 @@ include_once("wordix.php");
             echo "5 - Mostrar resumen de Jugador \n";
             echo "6 - Mostrar listado de partidas ordenadas por jugador y por palabra \n";
             echo "7 - Agregar una palabra de 5 letras a Wordix \n";
-            echo "8 - Salir \n";
+            echo "8 - salir \n";
             echo " - elija una opcion -  \n";
             $opcion = trim(fgets(STDIN));
-            return $opcion;
+                return $opcion;
         }
 
     /**
@@ -181,9 +181,9 @@ include_once("wordix.php");
                 }
             }
             $cant = $totalPartidas;  //count: cuenta todos los elementos de un array o algo de un objeto
-            if($cant==0){
-                $porcent=0;
-            }else{
+            if($cant == 0){
+                $porcent = 0;
+            } else {
                 $porcent = (INT)(($victorias*100)/$cant); 
             }
             $resumenJugador = ["jugador" => $nombreJugador, "partidas" => $totalPartidas, "puntaje" => $puntaje,
@@ -233,10 +233,10 @@ include_once("wordix.php");
             if ($partidaUno["jugador"] == $partidaDos["jugador"]) {
                 if ($partidaUno["palabraWordix"] == $partidaDos["palabraWordix"]) {
                     $orden = 0;
-                }else{
+                } else {
                     $orden = ($partidaUno["palabraWordix"] < $partidaDos["palabraWordix"]) ? -1 : 1;
                 }
-            }else{
+            } else {
                 $orden = ($partidaUno["jugador"] < $partidaDos["jugador"]) ? -1 : 1;
             }
             return $orden;
@@ -362,7 +362,6 @@ include_once("wordix.php");
             case 7: //Agregar una palabra de 5 letras a Wordix
                 $palabraN = leerPalabra5Letras();     
                 $coleccionPalabras = agregarPalabra($coleccionPalabras,$palabraN);
-                /// Falta verificar si funciona al 100%
                 break;
 
             case 8: ///salir
