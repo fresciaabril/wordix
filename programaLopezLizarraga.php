@@ -180,7 +180,7 @@ include_once("wordix.php");
                     }
                 }
             }
-            $cant = $totalPartidas;  //count: cuenta todos los elementos de un array o algo de un objeto
+            $cant = $totalPartidas; ///count: cuenta todos los elementos de un array o algo de un objeto
             if($cant == 0){
                 $porcent = 0;
             } else {
@@ -219,8 +219,9 @@ include_once("wordix.php");
      * @param array $coleccionPartidas
      */
         function partidasOrdenadas($coleccionPartidas) {
-            uasort($coleccionPartidas, 'compararPartidas');
-            print_r($coleccionPartidas);
+            uasort($coleccionPartidas, 'compararPartidas'); /// uasort: Ordena un array con una función de comparación 
+                                                            /// definida por el usuario y mantiene la asociación de índices.
+            print_r($coleccionPartidas); /// print_r: Imprime información legible para humanos sobre una variable
         }
 
     /**
@@ -336,7 +337,7 @@ include_once("wordix.php");
                 break;
 
             case 3: //Mostrar una partida 
-                $numeroPartida = solicitarNumeroEntre(0, count($partidas) - 1);
+                $numeroPartida = solicitarNumeroEntre(0, count($partidas) - 1); /// count: cuenta todos los elementos de un array o algo de un objeto
                 datosPartida($partidas, $numeroPartida);
                 break;
 
